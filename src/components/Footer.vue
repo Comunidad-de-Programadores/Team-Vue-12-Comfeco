@@ -26,7 +26,7 @@
 
 <style scoped>
   .bg-color-footer{
-    background: #3C043D;
+    background: var(--bgfooter);
   }
   .icon-facebook, .icon-youtube, .icon-instagram, .icon-twitter, .icon-discord, .icon-linkedin  {
     font-size: 20px;
