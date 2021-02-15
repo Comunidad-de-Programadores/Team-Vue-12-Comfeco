@@ -2,7 +2,10 @@
   <body>
     <div class="center">
       <div class="container">
-        <label for="show" class="close-btn fas fa-times" title="close"></label>
+          <div class="links">
+            <router-link to="/Login">Inicia sesión</router-link> |
+            <router-link to="/Login">Regístrate</router-link>
+          </div>
         <form action="#">
           <div class="data">
             <label>Correo electronico</label>
@@ -87,6 +90,10 @@ form .data label {
   color: white;
   font-size: 18px;
 }
+.links {
+  color: white;
+  font-size: 14px;
+}
 form .data input {
   height: 100%;
   width: 100%;
@@ -140,7 +147,6 @@ form .btn button {
   color: #fff;
   font-size: 18px;
   font-weight: 500;
-  text-transform: uppercase;
   letter-spacing: 1px;
   cursor: pointer;
 }
