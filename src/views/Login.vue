@@ -28,7 +28,8 @@
   </body>
 </template>
 
-<script></script>
+<script>
+</script>
 
 <style>
 @import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
@@ -42,7 +43,9 @@
 body {
   height: 100vh;
   width: 100%;
+  background-image: url("~@/assets/bg-desktop/bg-desktop.svg");
 }
+
 
 .container {
   position: absolute;
