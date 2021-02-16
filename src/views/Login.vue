@@ -1,5 +1,5 @@
 <template>
-  <body>
+  <div class="contenedor">
     <div class="center">
       <div class="container">
           <div class="links">
@@ -25,7 +25,7 @@
         </form>
       </div>
     </div>
-  </body>
+  </div>
 </template>
 
 <script>
@@ -40,7 +40,7 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-body {
+.contenedor {
   height: 100vh;
   width: 100%;
   background-image: url("~@/assets/bg-desktop/bg-desktop.svg");
