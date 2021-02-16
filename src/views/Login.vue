@@ -44,6 +44,10 @@ body {
   height: 100vh;
   width: 100%;
   background-image: url("~@/assets/bg-desktop/bg-desktop.svg");
+  background-color: var(--bgmain);
+  background-repeat: no-repeat;
+  background-position-y: 50%;
+  background-position-x: 50%;
 }
 
 
