@@ -6,7 +6,7 @@
           <router-link :to="{ name: `Login` }">Inicia sesión</router-link> |
           <router-link :to="{ name: `Register` }">Regístrate</router-link>
         </div>
-        <form @submit.prevent="clickLogin">
+        <form @submit.prevent="clickRegister">
           <div class="data">
             <label
               class="label-email"
@@ -44,7 +44,7 @@
           </div>
           <div class="btn">
             <div class="inner"></div>
-            <button type="submit">Registrarse</button>
+            <button type="submit">{{ botomName }}</button>
           </div>
         </form>
       </div>
@@ -64,10 +64,14 @@ export default {
       emailString: "",
       passwordString: "",
       passwordConfirmString: "",
-      showErrorMessageLogin: false
+      showErrorMessageLogin: false,
+      isLoading: false
     };
   },
   computed: {
+    botomName() {
+      return this.isLoading ? "Espere..." : "Registrarse";
+    },
     email() {
       return new Email(this.emailString);
     },
@@ -88,23 +92,28 @@ export default {
     }
   },
   methods: {
-    clickLogin() {
+    clickRegister() {
+      if (this.isLoading) return;
+      this.isLoading = true;
       if (this.showValidatedErrors()) return;
       registerWithEmailAndPassword({
         email: this.email,
         password: this.password
       })
         .then(() => {
+          localStorage.setItem("isAuth", true);
           this.$router.push({ name: "Home" });
         })
         .catch(error => {
+          this.isLoading = false;
           var errorMessage = error.message;
           this.showAlert(errorMessage);
         });
     },
     showValidatedErrors() {
+      this.isLoading = false;
       this.showErrorMessageLogin = true;
-      if (this.showErrorMessagePasswordConfirm()) {
+      if (this.showErrorMessagePasswordConfirm) {
         this.showAlert("Las contraseñas no coinciden");
         return true;
       }

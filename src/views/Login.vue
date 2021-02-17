@@ -32,7 +32,7 @@
           </div>
           <div class="btn">
             <div class="inner"></div>
-            <button type="submit">Ingresar</button>
+            <button type="submit">{{ botomName }}</button>
           </div>
         </form>
       </div>
@@ -51,10 +51,14 @@ export default {
     return {
       emailString: "",
       passwordString: "",
+      isLoading: false,
       showErrorMessageLogin: false
     };
   },
   computed: {
+    botomName() {
+      return this.isLoading ? "Espere..." : "Ingresar";
+    },
     email() {
       return new Email(this.emailString);
     },
@@ -70,6 +74,8 @@ export default {
   },
   methods: {
     clickLogin() {
+      if (this.isLoading) return;
+      this.isLoading = true;
       if (this.showValidatedErrors()) return;
       signInWithEmailAndPassword({
         email: this.email,
@@ -80,11 +86,13 @@ export default {
           this.$router.push({ name: "Home" });
         })
         .catch(error => {
+          this.isLoading = false;
           var errorMessage = error.message;
           this.showAlert(errorMessage);
         });
     },
     showValidatedErrors() {
+      this.isLoading = false;
       this.showErrorMessageLogin = true;
       if (!this.email.isValid() && !this.password.isValid()) {
         this.showAlert("Correo y contraseña inválidos");
