@@ -1,24 +1,17 @@
 <template>
   <div id="app">
-    <div class="nav">
-      <router-link v-if="isUserAuthenticated" to="/"> Home | </router-link>
-      <router-link v-if="isUserAuthenticated" to="/about"> About |</router-link>
-      <router-link v-if="isUserAuthenticated" to="/politicas-privacidad">
-        politicas |</router-link
-      >
-
-      <ButtonSignOut v-if="isUserAuthenticated" />
-    </div>
+    <Header :isUserAuthenticated="isUserAuthenticated" />
     <router-view />
   </div>
 </template>
 
 <script>
 import { auth } from "@/firebase";
-import ButtonSignOut from "@/components/ButtonSignOut.vue";
+import Header from "@/components/Header.vue";
+
 export default {
   components: {
-    ButtonSignOut
+    Header
   },
   created() {
     const isAuth = localStorage.getItem("isAuth");
@@ -46,9 +39,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.nav {
-  display: flex;
-}
-</style>
