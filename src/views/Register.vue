@@ -105,13 +105,11 @@ export default {
           this.$router.push({ name: "Home" });
         })
         .catch(error => {
-          this.isLoading = false;
           var errorMessage = error.message;
           this.showAlert(errorMessage);
         });
     },
     showValidatedErrors() {
-      this.isLoading = false;
       this.showErrorMessageLogin = true;
       if (this.showErrorMessagePasswordConfirm) {
         this.showAlert("Las contraseñas no coinciden");
@@ -132,6 +130,7 @@ export default {
       return false;
     },
     showAlert(errorMessage) {
+      this.isLoading = false;
       alert(errorMessage);
       return;
     }

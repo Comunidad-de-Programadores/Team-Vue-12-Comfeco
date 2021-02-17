@@ -46,7 +46,7 @@ import Email from "@/services/value_object/Email.js";
 import Password from "@/services/value_object/Password.js";
 
 export default {
-  name: "Login",
+  name: "Register",
   data() {
     return {
       emailString: "",
@@ -86,13 +86,11 @@ export default {
           this.$router.push({ name: "Home" });
         })
         .catch(error => {
-          this.isLoading = false;
           var errorMessage = error.message;
           this.showAlert(errorMessage);
         });
     },
     showValidatedErrors() {
-      this.isLoading = false;
       this.showErrorMessageLogin = true;
       if (!this.email.isValid() && !this.password.isValid()) {
         this.showAlert("Correo y contraseña inválidos");
@@ -109,6 +107,7 @@ export default {
       return false;
     },
     showAlert(errorMessage) {
+      this.isLoading = false;
       alert(errorMessage);
       return;
     }

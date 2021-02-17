@@ -49,6 +49,7 @@ export default {
   position: absolute;
   background-color: var(--bgheader);
   width: 100%;
+  min-height: 4.5rem;
   height: 12%;
   padding: 17px;
   color: white;

@@ -1,6 +1,7 @@
 export default class Email {
   #value;
   constructor(email) {
+    console.assert(!!email, email);
     this.#value = email;
   }
 

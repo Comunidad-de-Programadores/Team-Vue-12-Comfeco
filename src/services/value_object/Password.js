@@ -1,6 +1,7 @@
 export default class Password {
   #value;
   constructor(password) {
+    console.assert(!!password, password);
     this.#value = password;
   }
 
