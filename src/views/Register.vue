@@ -27,12 +27,24 @@
               required="required"
             />
           </div>
+          <div class="data">
+            <label
+              class="label-email"
+              v-bind:class="{ invalid: showErrorMessagePasswordConfirm }"
+              >Confirmar Contraseña</label
+            >
+            <input
+              type="password"
+              v-model="passwordConfirmString"
+              required="required"
+            />
+          </div>
           <div class="forgot-pass">
             <a href="#">¿Olvidaste tu contraseña?</a>
           </div>
           <div class="btn">
             <div class="inner"></div>
-            <button type="submit">Ingresar</button>
+            <button type="submit">Registrarse</button>
           </div>
         </form>
       </div>
@@ -41,7 +53,7 @@
 </template>
 
 <script>
-import { signInWithEmailAndPassword } from "@/services/auth_services";
+import { registerWithEmailAndPassword } from "@/services/auth_services";
 import Email from "@/services/value_object/Email.js";
 import Password from "@/services/value_object/Password.js";
 
@@ -51,6 +63,7 @@ export default {
     return {
       emailString: "",
       passwordString: "",
+      passwordConfirmString: "",
       showErrorMessageLogin: false
     };
   },
@@ -66,17 +79,22 @@ export default {
     },
     showErrorMessagePassword() {
       return !this.password.isValid() && this.showErrorMessageLogin;
+    },
+    showErrorMessagePasswordConfirm() {
+      return (
+        this.passwordString !== this.passwordConfirmString &&
+        this.passwordConfirmString
+      );
     }
   },
   methods: {
     clickLogin() {
       if (this.showValidatedErrors()) return;
-      signInWithEmailAndPassword({
+      registerWithEmailAndPassword({
         email: this.email,
         password: this.password
       })
         .then(() => {
-          localStorage.setItem("isAuth", true);
           this.$router.push({ name: "Home" });
         })
         .catch(error => {
@@ -86,6 +104,10 @@ export default {
     },
     showValidatedErrors() {
       this.showErrorMessageLogin = true;
+      if (this.showErrorMessagePasswordConfirm()) {
+        this.showAlert("Las contraseñas no coinciden");
+        return true;
+      }
       if (!this.email.isValid() && !this.password.isValid()) {
         this.showAlert("Correo y contraseña inválidos");
         return true;

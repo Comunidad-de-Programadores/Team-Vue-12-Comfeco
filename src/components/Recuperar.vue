@@ -1,33 +1,33 @@
 <template>
-    <body>
-        <div class="center">
-        <div class="container">
-            <div class="links">
-               Reasignar Contraseña
-            </div>
-            <form action="#">
-                <div class="data">
-                    <label>Correo electronico</label>
-                    <input type="text" required />
-                </div>
-                <div class="btn">
-                    <div class="enviarEnlace"></div>
-                    <button type="submit">Enviar enlace</button>
-                </div>
-                <div class="btn">
-                    <div class="inner"></div>
-                    <button type="submit">Iniciar sesión</button>
-                </div>            
-            </form>
+  <body>
+    <div class="center">
+      <div class="container">
+        <div class="links">
+          Reasignar Contraseña
         </div>
-        </div>
-    </body>
+        <form action="#">
+          <div class="data">
+            <label>Correo electronico</label>
+            <input type="text" required />
+          </div>
+          <div class="btn">
+            <div class="enviarEnlace"></div>
+            <button type="submit">Enviar enlace</button>
+          </div>
+          <div class="btn">
+            <div class="inner"></div>
+            <button type="submit">Iniciar sesión</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
 </template>
 
 <script>
-  export default {
-    name: 'Recuperar',  
-  }
+export default {
+  name: "Recuperar"
+};
 </script>
 
 <style>
@@ -55,14 +55,14 @@ input[type="checkbox"] {
   display: none;
 }
 .container {
-  background:#843c84;
+  background: #843c84;
   width: 410px;
   padding: 30px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
 #show:checked ~ .container {
   display: block;
-}  
+}
 .container .close-btn {
   position: absolute;
   right: 20px;
