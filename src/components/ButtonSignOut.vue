@@ -23,8 +23,14 @@ export default {
 
 <style scoped>
 .btn {
+  color: var(--bgheader);
+  background: white;
   padding: 0.2rem 1rem;
   margin-left: 1rem;
-  border: 1px solid black;
+  border: 1px solid var(--bgheader);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
 }
 </style>

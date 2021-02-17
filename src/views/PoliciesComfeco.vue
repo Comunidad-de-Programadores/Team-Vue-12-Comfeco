@@ -47,6 +47,7 @@ export default {};
 </script>
 <style scoped>
 .polices-comfeco-container {
+  padding-top: 10vh;
   width: 100%;
   height: 100vh;
   background-color: var(--bgmain);
