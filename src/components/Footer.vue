@@ -1,10 +1,10 @@
 <template>
   <div>
     <footer
-      class="bg-color-footer w-full text-white flex justify-between items-center "
+      class="bg-color-footer w-full text-white flex justify-between items-center absolute bottom-0"
     >
       <div class="ml-6 my-4">
-        <p class="md:text-2xl">@Team-Vue-12</p>
+        <p class="text-xs md:text-2xl">@Team-Vue-12</p>
       </div>
       <nav class=" my-4 mr-6">
         <a

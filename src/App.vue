@@ -2,16 +2,19 @@
   <div id="app">
     <Header :isUserAuthenticated="isUserAuthenticated" />
     <router-view />
+    <Footer />
   </div>
 </template>
 
 <script>
 import { auth } from "@/firebase";
 import Header from "@/components/Header.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
   components: {
-    Header
+    Header, 
+    Footer
   },
   created() {
     const isAuth = localStorage.getItem("isAuth");
