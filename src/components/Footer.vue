@@ -1,5 +1,4 @@
 <template>
-  <div>
     <footer
       class="bg-color-footer w-full text-white flex justify-between items-center absolute bottom-0"
     >
@@ -45,7 +44,6 @@
         ></a>
       </nav>
     </footer>
-  </div>
 </template>
 
 <script>
