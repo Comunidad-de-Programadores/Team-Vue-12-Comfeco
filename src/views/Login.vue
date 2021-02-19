@@ -2,10 +2,7 @@
   <div class="contenedor">
     <div class="center">
       <div class="container">
-        <div class="links">
-          <router-link :to="{ name: `Login` }">Inicia sesión</router-link> |
-          <router-link :to="{ name: `Register` }">Regístrate</router-link>
-        </div>
+        <NavBarAuth />
         <form @submit.prevent="clickLogin">
           <div class="data">
             <label
@@ -44,9 +41,13 @@
 import { signInWithEmailAndPassword } from "@/services/auth_services";
 import Email from "@/services/value_object/Email.js";
 import Password from "@/services/value_object/Password.js";
+import NavBarAuth from "@/components/NavBarAuth.vue";
 
 export default {
-  name: "Register",
+  name: "Login",
+  components: {
+    NavBarAuth
+  },
   data() {
     return {
       emailString: "",
@@ -180,10 +181,7 @@ form .data label {
   color: white;
   font-size: 18px;
 }
-.links {
-  color: white;
-  font-size: 14px;
-}
+
 form .data input {
   height: 100%;
   width: 100%;
