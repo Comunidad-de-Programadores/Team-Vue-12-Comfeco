@@ -28,7 +28,7 @@
             />
           </div>
           <div class="forgot-pass">
-            <a href="#" @click.prevent="mostrarReinicio">¿Olvidaste tu contraseña?</a>
+            <router-link :to="{ name: `Reset` }">¿Olvidaste tu contraseña?</router-link>
           </div>
           <div class="btn">
             <div class="inner"></div>

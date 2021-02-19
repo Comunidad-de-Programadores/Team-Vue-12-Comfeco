@@ -1,5 +1,5 @@
 <template>
-    <div class="center">
+    <div class="center mx-2">
       <div class="container2">
         <div class="text-xl colorAmarilloTexto">
           Reasignar Contraseña
@@ -11,7 +11,9 @@
           </div>
           <div class="flex justify-between py-8">
             <button class="text-md text-white font-medium p-2 rounded-md colorBoton" type="submit">Enviar enlace</button>
-            <button class="text-md text-white font-medium p-2 rounded-md colorBoton" type="submit" @click.prevent="ocultarReinicio">Iniciar sesión</button>
+            <router-link :to="{ name: `Login` }">
+              <button class="text-md text-white font-medium p-2 rounded-md colorBoton" type="submit" >Iniciar sesión</button>
+            </router-link>
           </div>
 
         </form>
@@ -49,6 +51,17 @@ export default {
     #eaac01
   );
 }
+
+.colorBoton:hover {
+  background: -webkit-linear-gradient(
+    right,
+     #dd9220,
+    #eaa109,
+    #dd9250,
+    #eaaf00
+  ); 
+}
+
 .center {
   display: flex;
   justify-content: center;
@@ -112,48 +125,5 @@ form .btn {
   position: relative;
   overflow: hidden;
 }
-form .btn .inner {
-  height: 100%;
-  width: 300%;
-  position: absolute;
-  left: -100%;
-  z-index: -1;
-  background: -webkit-linear-gradient(
-    right,
-    #dd9206,
-    #eaac01,
-    #dd9206,
-    #eaac01
-  );
-  transition: all 0.4s;
-}
-form .btn .enviarEnlace {
-  height: 100%;
-  width: 300%;
-  position: absolute;
-  left: -100%;
-  z-index: -1;
-  background: -webkit-linear-gradient(
-    right,
-    #dd9206,
-    #eaac01,
-    #dd9206,
-    #eaac01
-  );
-  transition: all 0.4s;
-}
-form .btn:hover .inner {
-  left: 0;
-}
-form .btn button {
-  height: 100%;
-  width: 100%;
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 500;
-  letter-spacing: 1px;
-  cursor: pointer;
-}
+
 </style>
