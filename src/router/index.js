@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import ReinicioContraseña from "../views/ReinicioContraseña.vue";
 
 Vue.use(VueRouter);
 
@@ -24,6 +25,12 @@ const routes = [
     meta: { notRequiresAuth: true },
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Register.vue")
+  },
+  {
+    path: "/Reset",
+    name: "Reset",
+    meta: {notRequiresAuth: true},
+    component: ReinicioContraseña
   },
   {
     path: "/about",

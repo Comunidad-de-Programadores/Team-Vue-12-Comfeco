@@ -1,7 +1,6 @@
 <template>
-  <body>
     <div class="center">
-      <div class="container">
+      <div class="container2">
         <div class="links">
           Reasignar Contraseña
         </div>
@@ -14,14 +13,15 @@
             <div class="enviarEnlace"></div>
             <button type="submit">Enviar enlace</button>
           </div>
+          <router-link :to="{ name: `Login` }">
           <div class="btn">
             <div class="inner"></div>
             <button type="submit">Iniciar sesión</button>
           </div>
+          </router-link>
         </form>
       </div>
     </div>
-  </body>
 </template>
 
 <script>
@@ -44,55 +44,65 @@ body {
   width: 100%;
 }
 
-.container {
+.container2 {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  height: 55%;
+  overflow: auto;
+  margin-top: 10px ;
 }
 
 input[type="checkbox"] {
   display: none;
 }
-.container {
+.container2 {
   background: #843c84;
-  width: 410px;
-  padding: 30px;
+  width: 80%;
+  padding: 10px 30px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
-#show:checked ~ .container {
+
+@media (min-width: 700px) {
+  .container2{
+    width:410px;
+  }
+}
+
+#show:checked ~ .container2 {
   display: block;
 }
-.container .close-btn {
+.container2 .close-btn {
   position: absolute;
   right: 20px;
   top: 15px;
   font-size: 18px;
   cursor: pointer;
 }
-.container .close-btn:hover {
+.container2 .close-btn:hover {
   color: #3498db;
 }
-.container .text {
+.container2 .text {
   font-size: 35px;
   font-weight: 600;
   text-align: center;
 }
-.container form {
+.container2 form {
   margin-top: -20px;
 }
-.container form .data {
+.container2 form .data {
   height: 45px;
   width: 100%;
   margin: 40px 0;
 }
 form .data label {
   color: white;
-  font-size: 18px;
+  font-size: 16px;
 }
 .links {
-  color: white;
-  font-size: 14px;
+  color: var(--yellowcomfeco);
+  font-size: 20px;
 }
 form .data input {
   height: 100%;

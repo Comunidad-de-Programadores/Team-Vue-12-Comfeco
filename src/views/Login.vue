@@ -25,7 +25,7 @@
             />
           </div>
           <div class="forgot-pass">
-            <a href="#">¿Olvidaste tu contraseña?</a>
+            <router-link :to="{ name: `Reset` }">¿Olvidaste tu contraseña?</router-link>
           </div>
           <div class="btn">
             <div class="inner"></div>
@@ -53,7 +53,8 @@ export default {
       emailString: "",
       passwordString: "",
       isLoading: false,
-      showErrorMessageLogin: false
+      showErrorMessageLogin: false,
+
     };
   },
   computed: {
@@ -125,6 +126,7 @@ export default {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+
 .contenedor {
   height: 100vh;
   width: 100%;
