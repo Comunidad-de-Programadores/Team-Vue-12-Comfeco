@@ -56,15 +56,9 @@ import Password from "@/services/value_object/Password.js";
 import NavBarAuth from "@/components/NavBarAuth.vue";
 
 export default {
-<<<<<<< HEAD
   name: "Register",
   components: {
     NavBarAuth
-=======
-  name: "Login",
-  created(){
-    console.log(this.$route.path);
->>>>>>> reinicioComponente
   },
   data() {
     return {
