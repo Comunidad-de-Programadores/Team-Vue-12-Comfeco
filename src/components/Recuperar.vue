@@ -1,27 +1,22 @@
 <template>
-  <body>
     <div class="center">
-      <div class="container">
-        <div class="links">
+      <div class="container2">
+        <div class="text-xl colorAmarilloTexto">
           Reasignar Contraseña
         </div>
         <form action="#">
           <div class="data">
-            <label>Correo electronico</label>
+            <label class="text-base text-white">Correo electronico</label>
             <input type="text" required />
           </div>
-          <div class="btn">
-            <div class="enviarEnlace"></div>
-            <button type="submit">Enviar enlace</button>
+          <div class="flex justify-between py-8">
+            <button class="text-md text-white font-medium p-2 rounded-md colorBoton" type="submit">Enviar enlace</button>
+            <button class="text-md text-white font-medium p-2 rounded-md colorBoton" type="submit" @click.prevent="ocultarReinicio">Iniciar sesión</button>
           </div>
-          <div class="btn">
-            <div class="inner"></div>
-            <button type="submit">Iniciar sesión</button>
-          </div>
+
         </form>
       </div>
     </div>
-  </body>
 </template>
 
 <script>
@@ -39,61 +34,59 @@ export default {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-body {
-  height: 100vh;
-  width: 100%;
+.colorAmarilloTexto{
+  color: var(--yellowcomfeco);
 }
 
+
+
+.colorBoton {
+    background: -webkit-linear-gradient(
+    right,
+    #dd9206,
+    #eaac01,
+    #dd9206,
+    #eaac01
+  );
+}
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+/* 
 .container {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
+} */
 
-input[type="checkbox"] {
-  display: none;
-}
-.container {
+
+.container2 {
   background: #843c84;
   width: 410px;
   padding: 30px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
-#show:checked ~ .container {
-  display: block;
-}
-.container .close-btn {
-  position: absolute;
-  right: 20px;
-  top: 15px;
-  font-size: 18px;
-  cursor: pointer;
-}
-.container .close-btn:hover {
-  color: #3498db;
-}
-.container .text {
+
+
+.container2 .text {
   font-size: 35px;
   font-weight: 600;
   text-align: center;
 }
-.container form {
+.container2 form {
   margin-top: -20px;
 }
-.container form .data {
+.container2 form .data {
   height: 45px;
   width: 100%;
   margin: 40px 0;
 }
-form .data label {
-  color: white;
-  font-size: 18px;
-}
-.links {
-  color: white;
-  font-size: 14px;
-}
+
+
 form .data input {
   height: 100%;
   width: 100%;
@@ -105,9 +98,7 @@ form .data input:focus {
   border-color: #3498db;
   border-bottom-width: 2px;
 }
-form .forgot-pass {
-  margin-top: -8px;
-}
+
 form .forgot-pass a {
   font-size: 12px;
   color: #fafafa;
@@ -164,15 +155,5 @@ form .btn button {
   font-weight: 500;
   letter-spacing: 1px;
   cursor: pointer;
-}
-form .signup-link {
-  text-align: center;
-}
-form .signup-link a {
-  color: #3498db;
-  text-decoration: none;
-}
-form .signup-link a:hover {
-  text-decoration: underline;
 }
 </style>

@@ -59,6 +59,9 @@ import Password from "@/services/value_object/Password.js";
 
 export default {
   name: "Login",
+  created(){
+    console.log(this.$route.path);
+  },
   data() {
     return {
       emailString: "",

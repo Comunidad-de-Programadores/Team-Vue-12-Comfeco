@@ -28,7 +28,7 @@
             />
           </div>
           <div class="forgot-pass">
-            <a href="#">¿Olvidaste tu contraseña?</a>
+            <a href="#" @click.prevent="mostrarReinicio">¿Olvidaste tu contraseña?</a>
           </div>
           <div class="btn">
             <div class="inner"></div>
@@ -52,7 +52,8 @@ export default {
       emailString: "",
       passwordString: "",
       isLoading: false,
-      showErrorMessageLogin: false
+      showErrorMessageLogin: false,
+
     };
   },
   computed: {
@@ -124,6 +125,7 @@ export default {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+
 .contenedor {
   height: 100vh;
   width: 100%;
