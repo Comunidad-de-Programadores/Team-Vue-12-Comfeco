@@ -1,21 +1,24 @@
 <template>
-    <div class="center mx-2">
+    <div class="center">
       <div class="container2">
-        <div class="text-xl colorAmarilloTexto">
+        <div class="links">
           Reasignar Contraseña
         </div>
         <form action="#">
           <div class="data">
-            <label class="text-base text-white">Correo electronico</label>
+            <label>Correo electronico</label>
             <input type="text" required />
           </div>
-          <div class="flex justify-between py-8">
-            <button class="text-md text-white font-medium p-2 rounded-md colorBoton" type="submit">Enviar enlace</button>
-            <router-link :to="{ name: `Login` }">
-              <button class="text-md text-white font-medium p-2 rounded-md colorBoton" type="submit" >Iniciar sesión</button>
-            </router-link>
+          <div class="btn">
+            <div class="enviarEnlace"></div>
+            <button type="submit">Enviar enlace</button>
           </div>
-
+          <router-link :to="{ name: `Login` }">
+          <div class="btn">
+            <div class="inner"></div>
+            <button type="submit">Iniciar sesión</button>
+          </div>
+          </router-link>
         </form>
       </div>
     </div>
@@ -36,55 +39,50 @@ export default {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-.colorAmarilloTexto{
-  color: var(--yellowcomfeco);
+body {
+  height: 100vh;
+  width: 100%;
 }
 
-
-
-.colorBoton {
-    background: -webkit-linear-gradient(
-    right,
-    #dd9206,
-    #eaac01,
-    #dd9206,
-    #eaac01
-  );
-}
-
-.colorBoton:hover {
-  background: -webkit-linear-gradient(
-    right,
-     #dd9220,
-    #eaa109,
-    #dd9250,
-    #eaaf00
-  ); 
-}
-
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-/* 
-.container {
+.container2 {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-} */
+  height: 55%;
+  overflow: auto;
+  margin-top: 10px ;
+}
 
-
+input[type="checkbox"] {
+  display: none;
+}
 .container2 {
   background: #843c84;
-  width: 410px;
-  padding: 30px;
+  width: 80%;
+  padding: 10px 30px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
 
+@media (min-width: 700px) {
+  .container2{
+    width:410px;
+  }
+}
 
+#show:checked ~ .container2 {
+  display: block;
+}
+.container2 .close-btn {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  font-size: 18px;
+  cursor: pointer;
+}
+.container2 .close-btn:hover {
+  color: #3498db;
+}
 .container2 .text {
   font-size: 35px;
   font-weight: 600;
@@ -98,8 +96,14 @@ export default {
   width: 100%;
   margin: 40px 0;
 }
-
-
+form .data label {
+  color: white;
+  font-size: 16px;
+}
+.links {
+  color: var(--yellowcomfeco);
+  font-size: 20px;
+}
 form .data input {
   height: 100%;
   width: 100%;
@@ -111,7 +115,9 @@ form .data input:focus {
   border-color: #3498db;
   border-bottom-width: 2px;
 }
-
+form .forgot-pass {
+  margin-top: -8px;
+}
 form .forgot-pass a {
   font-size: 12px;
   color: #fafafa;
@@ -125,5 +131,58 @@ form .btn {
   position: relative;
   overflow: hidden;
 }
-
+form .btn .inner {
+  height: 100%;
+  width: 300%;
+  position: absolute;
+  left: -100%;
+  z-index: -1;
+  background: -webkit-linear-gradient(
+    right,
+    #dd9206,
+    #eaac01,
+    #dd9206,
+    #eaac01
+  );
+  transition: all 0.4s;
+}
+form .btn .enviarEnlace {
+  height: 100%;
+  width: 300%;
+  position: absolute;
+  left: -100%;
+  z-index: -1;
+  background: -webkit-linear-gradient(
+    right,
+    #dd9206,
+    #eaac01,
+    #dd9206,
+    #eaac01
+  );
+  transition: all 0.4s;
+}
+form .btn:hover .inner {
+  left: 0;
+}
+form .btn button {
+  height: 100%;
+  width: 100%;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+form .signup-link {
+  text-align: center;
+}
+form .signup-link a {
+  color: #3498db;
+  text-decoration: none;
+}
+form .signup-link a:hover {
+  text-decoration: underline;
+}
 </style>
