@@ -29,7 +29,7 @@ const routes = [
   {
     path: "/Reset",
     name: "Reset",
-    meta: {notRequiresAuth: true},
+    meta: { notRequiresAuth: true },
     component: ReinicioContraseña
   },
   {

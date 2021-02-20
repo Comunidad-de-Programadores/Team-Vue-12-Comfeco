@@ -25,7 +25,9 @@
             />
           </div>
           <div class="forgot-pass">
-            <router-link :to="{ name: `Reset` }">¿Olvidaste tu contraseña?</router-link>
+            <router-link :to="{ name: `Reset` }">
+              ¿Olvidaste tu contraseña?</router-link
+            >
           </div>
           <div class="btn">
             <div class="inner"></div>
@@ -53,8 +55,7 @@ export default {
       emailString: "",
       passwordString: "",
       isLoading: false,
-      showErrorMessageLogin: false,
-
+      showErrorMessageLogin: false
     };
   },
   computed: {

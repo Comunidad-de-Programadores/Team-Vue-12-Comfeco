@@ -1,32 +1,82 @@
 <template>
-    <div class="center">
-      <div class="container2">
-        <div class="links">
-          Reasignar Contraseña
+  <div class="center">
+    <div class="container2">
+      <div class="links">
+        Reasignar Contraseña
+      </div>
+      <form @submit="clckReset">
+        <div class="data">
+          <label :class="{ invalid: showErrorMessageEmail }">
+            Correo electronico</label
+          >
+          <input type="text" v-model="emailString" required="required" />
         </div>
-        <form action="#">
-          <div class="data">
-            <label>Correo electronico</label>
-            <input type="text" required />
-          </div>
-          <div class="btn">
-            <div class="enviarEnlace"></div>
-            <button type="submit">Enviar enlace</button>
-          </div>
-          <router-link :to="{ name: `Login` }">
+        <div class="btn">
+          <div class="enviarEnlace"></div>
+          <button type="submit">Enviar enlace</button>
+        </div>
+        <router-link :to="{ name: `Login` }">
           <div class="btn">
             <div class="inner"></div>
-            <button type="submit">Iniciar sesión</button>
+            <button>Iniciar sesión</button>
           </div>
-          </router-link>
-        </form>
-      </div>
+        </router-link>
+      </form>
     </div>
+  </div>
 </template>
 
 <script>
+import { auth } from "@/firebase.js";
+// import firebase from "firebase";
+import Email from "@/services/value_object/Email.js";
+
 export default {
-  name: "Recuperar"
+  name: "Recuperar",
+  data() {
+    return {
+      emailString: "",
+      isLoading: false
+    };
+  },
+  computed: {
+    email() {
+      return new Email(this.emailString);
+    },
+    showErrorMessageEmail() {
+      return !this.email.isValid() && this.showErrorMessageLogin;
+    }
+  },
+  methods: {
+    clckReset() {
+      if (this.isLoading) return;
+      this.isLoading = true;
+      if (this.showValidatedErrors()) return;
+      auth
+        .sendPasswordResetEmail(this.emailString)
+        .then(() => {
+          this.showAlert("Revise su correo");
+          this.emailString = "";
+        })
+        .catch(() => {
+          this.showAlert("Revise su correo");
+          this.emailString = "";
+        });
+    },
+    showValidatedErrors() {
+      this.showErrorMessageLogin = true;
+      if (!this.email.isValid()) {
+        this.showAlert("Correo Inválido");
+        return true;
+      }
+      return false;
+    },
+    showAlert(errorMessage) {
+      this.isLoading = false;
+      alert(errorMessage);
+      return;
+    }
+  }
 };
 </script>
 
@@ -51,7 +101,7 @@ body {
   transform: translate(-50%, -50%);
   height: 55%;
   overflow: auto;
-  margin-top: 10px ;
+  margin-top: 10px;
 }
 
 input[type="checkbox"] {
@@ -65,8 +115,8 @@ input[type="checkbox"] {
 }
 
 @media (min-width: 700px) {
-  .container2{
-    width:410px;
+  .container2 {
+    width: 410px;
   }
 }
 
@@ -184,5 +234,8 @@ form .signup-link a {
 }
 form .signup-link a:hover {
   text-decoration: underline;
+}
+.invalid {
+  color: rgb(255, 97, 97) !important;
 }
 </style>
