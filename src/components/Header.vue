@@ -17,6 +17,14 @@
           <ButtonSignOut />
         </li>
       </ul>
+      <router-link :to="{ name: `Login` }">
+        <button 
+          v-if="isInReset"  
+          class="text-xs yellow p-2 rounded font-medium transform hover:scale-105"
+        >
+          Iniciar sesión
+        </button>
+      </router-link>
     </nav>
   </header>
 </template>
@@ -32,19 +40,41 @@ export default {
   props: {
     isUserAuthenticated: { type: Boolean }
   },
+  mounted() {
+    this.isInReset = localStorage.getItem; 
+  },
   data() {
     return {
       nav_links: [
         { rutaName: "Home", name: "Inicio" },
         { rutaName: "About", name: "About" },
         { rutaName: "PoliticasPrivacidad", name: "Políticas" }
-      ]
+      ],
+      isInReset: false
     };
+  },
+  watch:{
+    $route (from){
+      if(from.path === "/Reset"){
+        console.log('entre');
+        this.isInReset = true;
+        localStorage.setItem("isInReset", "true");
+        return
+      }
+        this.isInReset = false;
+        // localStorage.setItem("isInReset", "true");
+        return
+    }
   }
 };
 </script>
 
 <style scoped>
+
+.yellow {
+  background-color: var(--yellowcomfeco);
+}
+
 .nav {
   position: absolute;
   background-color: var(--bgheader);
