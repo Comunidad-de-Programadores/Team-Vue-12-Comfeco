@@ -150,9 +150,17 @@ input[type="checkbox"] {
 }
 .container {
   background: #843c84;
-  width: 26rem;
+  width: 80%;
+  height: 66%;
   padding: 3rem 3.5rem 2rem;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  overflow: auto;
+
+}
+@media (min-width: 700px) {
+  .container {
+    width: 26rem;
+  }
 }
 #show:checked ~ .container {
   display: block;

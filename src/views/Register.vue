@@ -170,9 +170,17 @@ input[type="checkbox"] {
 }
 .container {
   background: #843c84;
-  width: 26rem;
-  padding: 3rem 3.5rem 2rem;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  height: 75%;
+  overflow: auto;
+  padding: 2rem 3.5rem 0;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); 
+  margin-top: 4px;
+}
+@media (min-width: 700px) {
+  .container {
+    width: 26rem;
+  }
 }
 #show:checked ~ .container {
   display: block;
