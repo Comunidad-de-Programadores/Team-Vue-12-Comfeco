@@ -20,7 +20,7 @@
       <router-link :to="{ name: `Login` }">
         <button 
           v-if="isInReset"  
-          class="text-xs yellow p-2 rounded font-medium transform hover:scale-105"
+          class="hidden sm:block text-xs yellow p-2 rounded font-medium transform hover:scale-105"
         >
           Iniciar sesión
         </button>
@@ -62,7 +62,6 @@ export default {
         return
       }
         this.isInReset = false;
-        // localStorage.setItem("isInReset", "true");
         return
     }
   }
