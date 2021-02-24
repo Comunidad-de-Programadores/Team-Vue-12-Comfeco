@@ -19,7 +19,7 @@
   </div>
 </template>
 <script>
-const fechas = {fechaActual: new Date(), fechaFinal: new Date('February 24, 2021 22:00:30') }
+const fechas = {fechaActual: new Date(), fechaFinal: new Date('February 26, 2021 23:00:30') }
 
 export default {
   data() {
@@ -52,9 +52,8 @@ export default {
       return minute;
     },    
     horas: function () {
-      var hour = Math.floor(this.totalSegundos / 3600);
+      var hour = Math.floor((this.totalSegundos / 3600) % 24);
       hour = (hour < 10) ? '0' + hour : hour;
-      hour = (parseInt(hour) >= 24 ) ? '00' : hour;
       return hour;
     },    
     dias: function () {
