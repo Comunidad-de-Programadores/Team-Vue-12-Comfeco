@@ -16,10 +16,6 @@
       <span>Segundos </span>
       {{ segundos }} 
     </p>
-    <p>
-      <span>Total Segundos </span>
-      {{ totalSegundos }} 
-    </p>
   </div>
 </template>
 <script>
@@ -32,7 +28,6 @@ export default {
       totalSegundos: Math.floor(((fechas.fechaFinal -  fechas.fechaActual)/1000)),
     };
   },
-
   watch: {
     totalSegundos: {
       handler(value) {
@@ -47,28 +42,23 @@ export default {
   },
   computed: {
     segundos: function () {
-      var s = (fechas.fechaFinal -  fechas.fechaActual);
-      s = this.totalSegundos;
-      var secs = s % 60;
+      var secs = this.totalSegundos % 60;
       secs = (secs < 10)? '0' + secs : secs;
       return secs;
     },
     minutos: function () {
-      var s = this.totalSegundos;
-      var minute = Math.floor((s / 60) % 60);
+      var minute = Math.floor((this.totalSegundos / 60) % 60);
       minute = (minute < 10)? '0' + minute : minute;
       return minute;
     },    
     horas: function () {
-      var s = this.totalSegundos;
-      var hour = Math.floor(s / 3600);
+      var hour = Math.floor(this.totalSegundos / 3600);
       hour = (hour < 10) ? '0' + hour : hour;
       hour = (parseInt(hour) >= 24 ) ? '00' : hour;
       return hour;
     },    
     dias: function () {
-      var s = this.totalSegundos;
-      var hour = Math.floor(s / 3600);
+      var hour = Math.floor(this.totalSegundos / 3600);
       var day =  Math.floor(hour / 24);
       day = (day < 10)? '0' + day : day;
       return day;
