@@ -47,6 +47,12 @@ const routes = [
     name: "PoliticasPrivacidad",
     meta: { requiresAuth: true },
     component: () => import("../views/PoliciesComfeco.vue")
+  },
+  {
+    path: "/comunidades",
+    name: "Comunidades",
+    meta: { requiresAuth: true },
+    component: () => import("../views/Communities.vue")
   }
 ];
 
