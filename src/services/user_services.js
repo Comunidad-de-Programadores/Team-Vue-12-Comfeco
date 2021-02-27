@@ -19,7 +19,7 @@ export const setDataUserService = async function({ nickname }) {
 export const existNicknameService = async function({ nickname }) {
   const result = await db
     .collection("nicknames")
-    .doc(nickname)
+    .doc(nickname.toLowerCase())
     .get();
   if (result.exists) {
     return true;

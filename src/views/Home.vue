@@ -1,7 +1,6 @@
 <template>
   <div class="home">
-    
-    <Contador/>
+    <Contador />
     <communities-card></communities-card>
   </div>
 </template>
@@ -10,7 +9,7 @@
 // @ is an alias to /src
 // import Recuperar from "@/components/Recuperar.vue";
 import Contador from "@/components/Contador.vue";
-import CommunitiesCard from "../components/CommunitiesCard.vue"
+import CommunitiesCard from "../components/CommunitiesCard.vue";
 export default {
   name: "Home",
   components: {
@@ -20,7 +19,7 @@ export default {
 };
 </script>
 <style scoped>
-.home{
+.home {
   padding-top: 7em;
 }
 </style>
