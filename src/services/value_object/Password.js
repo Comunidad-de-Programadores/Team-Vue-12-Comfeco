@@ -1,12 +1,16 @@
 export default class Password {
   #value;
   constructor(password) {
-    console.assert(!!password, password);
+    console.assert(
+      password !== null && password !== undefined,
+      `Estas instanciando con un '${password}' valor`
+    );
     this.#value = password;
   }
 
   isValid() {
-    return this.#value.length >= 6 && this.#value.length <= 60;
+    const expreg = /^(?=.{6,60}$)/;
+    return expreg.test(this.#value);
   }
 
   getValue() {

@@ -16,17 +16,21 @@ export default {
     Header,
     Footer
   },
-  created() {
-    const isAuth = localStorage.getItem("isAuth");
+  mounted() {
+    const isAuthe = localStorage.getItem("isAuth");
+    if (isAuthe) this.isUserAuthenticated = true;
 
     auth.onAuthStateChanged(user => {
       if (user) {
         this.isUserAuthenticated = true;
+        const isAuth = localStorage.getItem("isAuth");
+
         if (!isAuth) {
           localStorage.setItem("isAuth", true);
           this.$router.push({ name: "Home" });
         }
       } else {
+        const isAuth = localStorage.getItem("isAuth");
         this.isUserAuthenticated = false;
         if (isAuth) {
           localStorage.clear();

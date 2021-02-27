@@ -5,18 +5,35 @@
         <NavBarAuth />
         <form @submit.prevent="clickRegister">
           <div class="data">
-            <label
-              class="label-email"
-              v-bind:class="{ invalid: showErrorMessageEmail }"
-              >Correo electronico</label
+            <label class="label-form"
+              ><span>Nick</span
+              ><span
+                class="answer-style"
+                v-bind:class="[getColorMessage(stateNick)]"
+                >{{ getAnswer(stateNick) }}</span
+              >
+            </label>
+            <input type="text" v-model="nickString" required="required" />
+          </div>
+          <div class="data">
+            <label class="label-form"
+              ><span>Correo electrónico</span
+              ><span
+                class="answer-style"
+                v-bind:class="[getColorMessage(stateEmail)]"
+                >{{ getAnswer(stateEmail) }}</span
+              ></label
             >
             <input type="text" v-model="emailString" required="required" />
           </div>
           <div class="data">
-            <label
-              class="label-email"
-              v-bind:class="{ invalid: showErrorMessagePassword }"
-              >Contraseña</label
+            <label class="label-form"
+              ><span>Contraseña</span
+              ><span
+                class="answer-style"
+                v-bind:class="[getColorMessage(statePassword)]"
+                >{{ getAnswer(statePassword) }}</span
+              ></label
             >
             <input
               type="password"
@@ -25,10 +42,13 @@
             />
           </div>
           <div class="data">
-            <label
-              class="label-email"
-              v-bind:class="{ invalid: showErrorMessagePasswordConfirm }"
-              >Confirmar Contraseña</label
+            <label class="label-form"
+              ><span>Confirmar Contraseña</span
+              ><span
+                class="answer-style"
+                v-bind:class="[getColorMessage(statePassConfirm)]"
+                >{{ getAnswer(statePassConfirm) }}</span
+              ></label
             >
             <input
               type="password"
@@ -41,7 +61,9 @@
           </div>
           <div class="btn">
             <div class="inner"></div>
-            <button type="submit">{{ botomName }}</button>
+            <button type="submit">
+              {{ isLoading ? "Espere..." : "Registrarse" }}
+            </button>
           </div>
         </form>
       </div>
@@ -50,10 +72,25 @@
 </template>
 
 <script>
-import { registerWithEmailAndPassword } from "@/services/auth_services";
+import { registerUserService } from "@/services/auth_services";
+import { existNicknameService } from "@/services/user_services";
 import Email from "@/services/value_object/Email.js";
 import Password from "@/services/value_object/Password.js";
+import Nickname from "@/services/value_object/Nickname.js";
 import NavBarAuth from "@/components/NavBarAuth.vue";
+import { debounce } from "lodash";
+
+const stateField = {
+  INITIAL: "initial",
+  AVAILABLE: "available",
+  NOT_AVAILABLE: "not_available",
+  LOADING: "loading",
+  EMPTY: "empty",
+  ERROR: "error",
+  INVALID: "invalid",
+  VALID: "valid",
+  NOT_COINCIDENCE: "not_coincidence"
+};
 
 export default {
   name: "Register",
@@ -62,62 +99,198 @@ export default {
   },
   data() {
     return {
+      nickString: "",
       emailString: "",
       passwordString: "",
       passwordConfirmString: "",
-      showErrorMessageLogin: false,
+      stateNick: stateField.INITIAL,
+      stateEmail: stateField.INITIAL,
+      statePassword: stateField.INITIAL,
+      statePassConfirm: stateField.INITIAL,
       isLoading: false
     };
   },
   computed: {
-    botomName() {
-      return this.isLoading ? "Espere..." : "Registrarse";
-    },
     email() {
       return new Email(this.emailString);
     },
     password() {
       return new Password(this.passwordString);
     },
-    showErrorMessageEmail() {
-      return !this.email.isValid() && this.showErrorMessageLogin;
-    },
-    showErrorMessagePassword() {
-      return !this.password.isValid() && this.showErrorMessageLogin;
-    },
-    showErrorMessagePasswordConfirm() {
-      return (
-        this.passwordString !== this.passwordConfirmString &&
-        this.passwordConfirmString
-      );
+    nickname() {
+      return new Nickname(this.nickString);
     }
   },
+  watch: {
+    nickname: function() {
+      if (this.stateNick === stateField.INITIAL) {
+        this.debouncedSetStateNick();
+        return;
+      }
+      if (this.showErrorStateNick()) return;
+      this.stateNick = stateField.LOADING;
+      this.debouncedSetStateNick();
+    },
+    email: function() {
+      if (this.stateEmail === stateField.INITIAL) {
+        this.debouncedSetStateEmail();
+        return;
+      }
+      this.setStateEmail();
+    },
+    password: function() {
+      if (this.statePassword === stateField.INITIAL) {
+        this.debouncedSetStatePass();
+        return;
+      }
+      this.setStatePass();
+      if (this.statePassConfirm !== stateField.INITIAL)
+        this.setStatePassConfirm();
+    },
+    passwordConfirmString: function() {
+      if (this.statePassConfirm === stateField.INITIAL) {
+        this.debouncedSetPassConfirm();
+        return;
+      }
+      this.setStatePassConfirm();
+    }
+  },
+  created() {
+    this.debouncedSetStateNick = debounce(this.setStateNick, 900);
+    this.debouncedSetStateEmail = debounce(this.setStateEmail, 1100);
+    this.debouncedSetStatePass = debounce(this.setStatePass, 1100);
+    this.debouncedSetPassConfirm = debounce(this.setStatePassConfirm, 1100);
+  },
+
   methods: {
+    async setStateNick() {
+      if (this.showErrorStateNick()) return;
+      this.stateNick = stateField.LOADING;
+      try {
+        const existNick = await existNicknameService({
+          nickname: this.nickname.getValue()
+        });
+        if (existNick) this.stateNick = stateField.NOT_AVAILABLE;
+        else this.stateNick = stateField.AVAILABLE;
+      } catch (error) {
+        console.log(error);
+        this.stateNick = stateField.ERROR;
+      }
+    },
+    setStateEmail() {
+      if (this.emailString == "") {
+        this.stateEmail = stateField.EMPTY;
+        return;
+      }
+      if (!this.email.isValid()) {
+        this.stateEmail = stateField.INVALID;
+        return;
+      }
+      this.stateEmail = stateField.VALID;
+    },
+    setStatePass() {
+      if (this.passwordString == "") {
+        this.statePassword = stateField.EMPTY;
+        return;
+      }
+      if (!this.password.isValid()) {
+        this.statePassword = stateField.INVALID;
+        return;
+      }
+      this.statePassword = stateField.VALID;
+    },
+    setStatePassConfirm() {
+      if (this.passwordString !== this.passwordConfirmString) {
+        this.statePassConfirm = stateField.NOT_COINCIDENCE;
+        return;
+      }
+      if (!this.password.isValid()) {
+        this.statePassConfirm = stateField.INVALID;
+        return;
+      }
+      this.statePassConfirm = stateField.VALID;
+    },
+
+    showErrorStateNick() {
+      if (this.nickString == "") {
+        this.stateNick = stateField.EMPTY;
+        return true;
+      }
+      if (!this.nickname.isValid()) {
+        this.stateNick = stateField.INVALID;
+        return true;
+      }
+      return false;
+    },
+    getColorMessage(state) {
+      const options = {
+        [stateField.LOADING]: "",
+        [stateField.INITIAL]: "",
+        [stateField.AVAILABLE]: "green",
+        [stateField.NOT_AVAILABLE]: "yellow",
+        [stateField.ERROR]: "yellow",
+        [stateField.NOT_COINCIDENCE]: "orange",
+        [stateField.EMPTY]: "orange",
+        [stateField.VALID]: "green",
+        [stateField.INVALID]: "orange",
+        default: ""
+      };
+      return options[state] || options["default"];
+    },
+    getAnswer(state) {
+      const options = {
+        [stateField.INITIAL]: "",
+        [stateField.LOADING]: ". . .",
+        [stateField.AVAILABLE]: "Disponible",
+        [stateField.NOT_AVAILABLE]: "Ya en uso",
+        [stateField.EMPTY]: "Falta completar",
+        [stateField.INVALID]: "No válido",
+        [stateField.VALID]: "Válido",
+        [stateField.ERROR]: "hubo un error",
+        [stateField.NOT_COINCIDENCE]: "No coinciden",
+        default: ""
+      };
+      return options[state] || options["default"];
+    },
     clickRegister() {
       if (this.isLoading) return;
       this.isLoading = true;
       if (this.showValidatedErrors()) return;
-      registerWithEmailAndPassword({
+      this.registerUser();
+    },
+    registerUser() {
+      registerUserService({
         email: this.email,
-        password: this.password
+        password: this.password,
+        nickname: this.nickname
       })
         .then(() => {
-          localStorage.setItem("isAuth", true);
           this.$router.push({ name: "Home" });
         })
         .catch(error => {
-          var errorMessage = error.message;
-          this.showAlert(errorMessage);
+          const options = {
+            [stateField.NOT_AVAILABLE]: "El nick ya está en uso",
+
+            "auth/email-already-in-use":
+              "El email ya está siendo usado por otra cuenta",
+            default: error?.message ?? ""
+          };
+          if (error.code === stateField.NOT_AVAILABLE) {
+            this.stateNick = stateField.NOT_AVAILABLE;
+          }
+
+          this.showAlert(options[error.code] || options["default"]);
         });
     },
     showValidatedErrors() {
       this.showErrorMessageLogin = true;
-      if (this.showErrorMessagePasswordConfirm) {
+      if (this.passwordString !== this.passwordConfirmString) {
         this.showAlert("Las contraseñas no coinciden");
         return true;
       }
-      if (!this.email.isValid() && !this.password.isValid()) {
-        this.showAlert("Correo y contraseña inválidos");
+
+      if (!this.nickname.isValid() || this.stateNick !== stateField.AVAILABLE) {
+        this.showAlert("Nick Inválido o no disponible");
         return true;
       }
       if (!this.email.isValid()) {
@@ -171,11 +344,11 @@ input[type="checkbox"] {
 .container {
   background: #843c84;
   width: 80%;
-  height: 75%;
+
   overflow: auto;
-  padding: 2rem 3.5rem 0;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); 
-  margin-top: 4px;
+  padding: 2rem 3.5rem 2.5rem;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  margin-top: 0.5rem;
 }
 @media (min-width: 700px) {
   .container {
@@ -208,10 +381,7 @@ input[type="checkbox"] {
   width: 100%;
   margin: 40px 0;
 }
-form .data label {
-  color: white;
-  font-size: 18px;
-}
+
 .links {
   color: white;
   font-size: 14px;
@@ -237,7 +407,7 @@ form .forgot-pass a {
   text-decoration: underline;
 }
 form .btn {
-  margin: 30px 0;
+  margin: 30px 0 0;
   height: 45px;
   width: 100%;
   position: relative;
@@ -282,11 +452,27 @@ form .signup-link a {
 form .signup-link a:hover {
   text-decoration: underline;
 }
-.label-email {
+
+form .data label {
   color: white;
-  font-size: 18px;
+  font-size: 1rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
 }
-.invalid {
-  color: rgb(255, 97, 97) !important;
+.label-form {
+  color: white;
+}
+.yellow {
+  color: rgb(255, 248, 34) !important;
+}
+.green {
+  color: rgb(38, 245, 62) !important;
+}
+.orange {
+  color: rgb(255, 166, 70) !important;
+}
+form .data label .answer-style {
+  font-size: 0.75rem;
 }
 </style>

@@ -1,6 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import Login from "../views/Login.vue";
+import Register from "../views/Register.vue";
 import ReinicioContraseña from "../views/ReinicioContraseña.vue";
 
 Vue.use(VueRouter);
@@ -16,15 +18,13 @@ const routes = [
     path: "/Login",
     name: "Login",
     meta: { notRequiresAuth: true },
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Login.vue")
+    component: Login
   },
   {
     path: "/Register",
     name: "Register",
     meta: { notRequiresAuth: true },
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Register.vue")
+    component: Register
   },
   {
     path: "/Reset",
@@ -51,6 +51,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
+  mode: "history",
   base: process.env.BASE_URL,
   routes,
   scrollBehavior(to, from, savedPosition) {

@@ -2,19 +2,18 @@
   <div>
     <div class="contenedor">
       <Recuperar />
-  </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Recuperar from "@/components/Recuperar.vue";
-  export default {
-    name: "Reset",
-    components: {
-      Recuperar
-    }
-    
+export default {
+  name: "Reset",
+  components: {
+    Recuperar
   }
+};
 </script>
 
 <style scoped>
@@ -36,5 +35,4 @@ import Recuperar from "@/components/Recuperar.vue";
   background-position-y: 50%;
   background-position-x: 50%;
 }
-
 </style>

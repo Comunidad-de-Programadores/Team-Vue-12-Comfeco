@@ -20,20 +20,22 @@ export default {};
 }
 .links {
   color: white;
-  font-size: 1rem;
+
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   flex-direction: row;
 }
 .nav-link {
   color: white;
+  font-size: 1rem;
   position: relative;
 }
 .nav-link:before {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -0.15rem;
+  bottom: -0.1rem;
   background-color: #eaac01;
   width: 100%;
   height: 1.6px;
@@ -52,7 +54,7 @@ export default {};
   content: "";
   position: absolute;
   left: 0;
-  bottom: -0.15rem;
+  bottom: -0.1rem;
   background-color: #eaac01;
   width: 100%;
   height: 1.6px;

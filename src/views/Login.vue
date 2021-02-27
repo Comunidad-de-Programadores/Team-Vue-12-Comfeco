@@ -8,7 +8,10 @@
             <label
               class="label-email"
               v-bind:class="{ invalid: showErrorMessageEmail }"
-              >Correo electronico</label
+              ><span>Correo electrónico</span
+              ><span class="answer-style">{{
+                showErrorMessageEmail ? "Inválido" : ""
+              }}</span></label
             >
             <input type="text" v-model="emailString" required="required" />
           </div>
@@ -16,7 +19,12 @@
             <label
               class="label-email"
               v-bind:class="{ invalid: showErrorMessagePassword }"
-              >Contraseña</label
+              ><span>Contraseña</span
+              ><span
+                class="answer-style"
+                v-bind:class="{ invalid: showErrorMessagePassword }"
+                >{{ showErrorMessagePassword ? "Inválido" : "" }}</span
+              ></label
             >
             <input
               type="password"
@@ -31,7 +39,9 @@
           </div>
           <div class="btn">
             <div class="inner"></div>
-            <button type="submit">{{ botomName }}</button>
+            <button type="submit">
+              {{ isLoading ? "Espere..." : "Ingresar" }}
+            </button>
           </div>
         </form>
       </div>
@@ -54,14 +64,12 @@ export default {
     return {
       emailString: "",
       passwordString: "",
+
       isLoading: false,
       showErrorMessageLogin: false
     };
   },
   computed: {
-    botomName() {
-      return this.isLoading ? "Espere..." : "Ingresar";
-    },
     email() {
       return new Email(this.emailString);
     },
@@ -89,8 +97,15 @@ export default {
           this.$router.push({ name: "Home" });
         })
         .catch(error => {
-          var errorMessage = error.message;
-          this.showAlert(errorMessage);
+          const options = {
+            "auth/user-not-found": "El usuario no existe",
+            "auth/wrong-password": "Contraseña Incorrecta",
+            default: error?.message ?? ""
+          };
+          this.passwordString = "";
+          this.showErrorMessageLogin = false;
+          console.log(error.message);
+          this.showAlert(options[error.code] || options["default"]);
         });
     },
     showValidatedErrors() {
@@ -151,11 +166,9 @@ input[type="checkbox"] {
 .container {
   background: #843c84;
   width: 80%;
-  height: 66%;
-  padding: 3rem 3.5rem 2rem;
+  padding: 3rem 3.5rem;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   overflow: auto;
-
 }
 @media (min-width: 700px) {
   .container {
@@ -190,7 +203,7 @@ input[type="checkbox"] {
 }
 form .data label {
   color: white;
-  font-size: 18px;
+  font-size: 1rem;
 }
 
 form .data input {
@@ -214,7 +227,7 @@ form .forgot-pass a {
   text-decoration: underline;
 }
 form .btn {
-  margin: 30px 0;
+  margin: 30px 0 0;
   height: 45px;
   width: 100%;
   position: relative;
@@ -261,9 +274,19 @@ form .signup-link a:hover {
 }
 .label-email {
   color: white;
-  font-size: 18px;
 }
 .invalid {
   color: rgb(255, 97, 97) !important;
+}
+
+form .data label {
+  color: white;
+  font-size: 1rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+form .data label .answer-style {
+  font-size: 0.8rem;
 }
 </style>

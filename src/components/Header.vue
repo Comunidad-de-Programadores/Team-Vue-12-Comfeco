@@ -18,8 +18,8 @@
         </li>
       </ul>
       <router-link :to="{ name: `Login` }">
-        <button 
-          v-if="isInReset"  
+        <button
+          v-if="isInReset"
           class="hidden sm:block text-xs yellow p-2 rounded font-medium transform hover:scale-105"
         >
           Iniciar sesión
@@ -41,7 +41,7 @@ export default {
     isUserAuthenticated: { type: Boolean }
   },
   mounted() {
-    this.isInReset = localStorage.getItem; 
+    // this.isInReset = localStorage.getItem;
   },
   data() {
     return {
@@ -53,23 +53,21 @@ export default {
       isInReset: false
     };
   },
-  watch:{
-    $route (from){
-      if(from.path === "/Reset"){
-        console.log('entre');
+  watch: {
+    $route(from) {
+      if (from.path === "/Reset") {
+        console.log("entre");
         this.isInReset = true;
-        localStorage.setItem("isInReset", "true");
-        return
+        return;
       }
-        this.isInReset = false;
-        return
+      this.isInReset = false;
+      return;
     }
   }
 };
 </script>
 
 <style scoped>
-
 .yellow {
   background-color: var(--yellowcomfeco);
 }

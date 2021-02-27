@@ -10,8 +10,9 @@ export default {
       console.log("signOut");
       signOut()
         .then(() => {
-          location.reload();
           localStorage.clear();
+          this.$router.push({ name: "Login" });
+          location.reload();
         })
         .catch(error => {
           console.log(error);
