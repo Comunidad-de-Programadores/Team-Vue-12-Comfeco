@@ -33,19 +33,19 @@ export default {
       {
         name: "Comunidad de Programadores",
         avatarlink:
-          "https://cdn.discordapp.com/icons/775907616986890261/fab5c5c76da7db070db4195366a2b6e5.png?size=512",
+          "https://www.comfeco.com/images/maskable_icon.png",
         joinlink: "https://discord.com/invite/5Bb5yvzNPr"
       },
       {
         name: "Comunidad de Programadores",
         avatarlink:
-          "https://cdn.discordapp.com/icons/775907616986890261/fab5c5c76da7db070db4195366a2b6e5.png?size=512",
+          "https://www.comfeco.com/images/maskable_icon.png",
         joinlink: "https://discord.com/invite/5Bb5yvzNPr"
       },
       {
         name: "Comunidad de Programadores",
         avatarlink:
-          "https://cdn.discordapp.com/icons/775907616986890261/fab5c5c76da7db070db4195366a2b6e5.png?size=512",
+          "https://www.comfeco.com/images/maskable_icon.png",
         joinlink: "https://discord.com/invite/5Bb5yvzNPr"
       }
     ]
