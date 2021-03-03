@@ -23,7 +23,7 @@
 <script>
 const fechas = {
   fechaActual: new Date(),
-  fechaFinal: new Date("February 26, 2021 23:00:30")
+  fechaFinal: new Date("February 26, 2022 23:00:30")
 };
 
 export default {
