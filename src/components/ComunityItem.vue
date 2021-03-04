@@ -35,11 +35,12 @@ export default {
   width: 5em;
   height: 5em;
   border-radius: 50%;
-  background: red;
+  background: var(--bgfooter);
 }
 .comunity__avatar {
   width: 100%;
   height: 100%;
+  border-radius: 50%;
 }
 .comunity__title {
   width: 50%;
