@@ -57,6 +57,10 @@
               <option value="">Frontend Developer</option>
               <option value="">Backend Developer</option>
               <option value="">Dev Ops</option>
+              <option value="">Video Game Developer</option>
+              <option value="">UI/UX</option>
+              <option value="">Database Developer</option>
+              <option value="">Cloud Computing</option>
             </select>
           </div>
         </div>
