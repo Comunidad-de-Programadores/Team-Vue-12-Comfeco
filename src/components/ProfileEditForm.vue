@@ -135,6 +135,7 @@
           </div>
         </div>
       </div>
+      <button type="submit" class="profile-edit__btn">Guardar Cambios</button>
     </form>
   </div>
 </template>
@@ -256,6 +257,15 @@ export default {
 }
 .social-label span {
   margin-left: 0.3em;
+}
+
+.profile-edit__btn {
+  width: 90%;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  padding: 0.5em 1em;
+  background-color: var(--bgheader);
+  color: var(--yellowcomfeco);
 }
 @media screen and (min-width: 640px) and (orientation: landscape) {
   .edit-form__form {
