@@ -48,7 +48,8 @@ export default {
       nav_links: [
         { rutaName: "Home", name: "Inicio" },
         { rutaName: "About", name: "About" },
-        { rutaName: "PoliticasPrivacidad", name: "Políticas" }
+        { rutaName: "PoliticasPrivacidad", name: "Políticas" },
+        { rutaName: "ProfileUser", name: "Perfil" }
       ],
       isInReset: false
     };

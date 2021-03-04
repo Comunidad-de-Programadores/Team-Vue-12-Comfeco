@@ -53,6 +53,12 @@ const routes = [
     name: "Comunidades",
     meta: { requiresAuth: true },
     component: () => import("../views/Communities.vue")
+  },
+  {
+    path: "/perfil-usuario",
+    name: "ProfileUser",
+    meta: { requiresAuth: true },
+    component: () => import("../views/ProfileUser.vue")
   }
 ];
 
