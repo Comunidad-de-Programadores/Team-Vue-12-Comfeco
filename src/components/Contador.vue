@@ -21,53 +21,30 @@
   </div>
 </template>
 <script>
-const fechas = {
-  fechaActual: new Date(),
-  fechaFinal: new Date("February 26, 2022 23:00:30")
-};
-
 export default {
+  mounted() {
+    setInterval(this.countdouwn, 1000);
+  },
   data() {
     return {
-      fechaActual: fechas.fechaActual,
-      totalSegundos: Math.floor((fechas.fechaFinal - fechas.fechaActual) / 1000)
+      dias: '',
+      horas: '',
+      minutos:'',
+      segundos:''
+
     };
   },
-  watch: {
-    totalSegundos: {
-      handler(value) {
-        if (value > 0) {
-          setTimeout(() => {
-            this.totalSegundos--;
-          }, 1000);
-        }
-      },
-      immediate: true
+  methods: {
+    countdouwn() {
+      let fechaActual = new Date();
+      let fechaFinal = new Date( "15 March 2021 10:00:00" );
+      let totalSegundos = Math.floor((fechaFinal - fechaActual) / 1000);
+      this.dias = Math.floor(totalSegundos / 3600 / 24);
+      this.horas = Math.floor(totalSegundos / 3600) % 24;
+      this.minutos = ('0' + Math.floor(totalSegundos / 60) % 60).slice(-2);
+      this.segundos = ('0' + Math.floor(totalSegundos % 60)).slice(-2);
     }
   },
-  computed: {
-    segundos: function() {
-      var secs = this.totalSegundos % 60;
-      secs = secs < 10 ? "0" + secs : secs;
-      return secs;
-    },
-    minutos: function() {
-      var minute = Math.floor((this.totalSegundos / 60) % 60);
-      minute = minute < 10 ? "0" + minute : minute;
-      return minute;
-    },
-    horas: function() {
-      var hour = Math.floor((this.totalSegundos / 3600) % 24);
-      hour = hour < 10 ? "0" + hour : hour;
-      return hour;
-    },
-    dias: function() {
-      var hour = Math.floor(this.totalSegundos / 3600);
-      var day = Math.floor(hour / 24);
-      day = day < 10 ? "0" + day : day;
-      return day;
-    }
-  }
 };
 </script>
 
