@@ -45,7 +45,7 @@ const routes = [
   {
     path: "/politicas-privacidad",
     name: "PoliticasPrivacidad",
-    meta: { requiresAuth: true },
+    meta: { notRequiresAuth: true },
     component: () => import("../views/PoliciesComfeco.vue")
   },
   {
@@ -53,6 +53,12 @@ const routes = [
     name: "Comunidades",
     meta: { requiresAuth: true },
     component: () => import("../views/Communities.vue")
+  },
+  {
+    path: "/perfil-usuario",
+    name: "ProfileUser",
+    meta: { requiresAuth: true },
+    component: () => import("../views/ProfileUser.vue")
   }
 ];
 
