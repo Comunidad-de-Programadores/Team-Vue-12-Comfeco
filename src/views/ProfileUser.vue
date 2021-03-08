@@ -6,7 +6,7 @@
     <div class="profile-user__content" v-if="!showProfileEdit">
       <div class="profile-user__profile-tab">
         <div class="profile-user__profile-card">
-          <profile-card @changeview="changeShowProfileEdit" />
+          <profile-card @changeview="changeShowProfileEdit" :userData="user" />
         </div>
         <div class="profile-user__activities-container">
           <div class="profile-user__badges-container">
@@ -22,7 +22,7 @@
       </div>
     </div>
     <div v-else class="profile-user-edit-view">
-      <profile-edit-form @changeview="changeShowProfileEdit" />
+      <profile-edit-form @changeview="changeShowProfileEdit" :userProp="user" />
     </div>
   </div>
 </template>
@@ -34,6 +34,7 @@ export default {
     ProfileCard,
     ProfileEditForm
   },
+  props: ["user"],
   data: () => ({
     showProfileEdit: false
   }),

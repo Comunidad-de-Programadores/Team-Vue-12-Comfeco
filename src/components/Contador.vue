@@ -27,24 +27,23 @@ export default {
   },
   data() {
     return {
-      dias: '',
-      horas: '',
-      minutos:'',
-      segundos:''
-
+      dias: "",
+      horas: "",
+      minutos: "",
+      segundos: ""
     };
   },
   methods: {
     countdouwn() {
       let fechaActual = new Date();
-      let fechaFinal = new Date( "15 March 2021 10:00:00" );
+      let fechaFinal = new Date("15 March 2021 10:00:00");
       let totalSegundos = Math.floor((fechaFinal - fechaActual) / 1000);
       this.dias = Math.floor(totalSegundos / 3600 / 24);
       this.horas = Math.floor(totalSegundos / 3600) % 24;
-      this.minutos = ('0' + Math.floor(totalSegundos / 60) % 60).slice(-2);
-      this.segundos = ('0' + Math.floor(totalSegundos % 60)).slice(-2);
+      this.minutos = ("0" + (Math.floor(totalSegundos / 60) % 60)).slice(-2);
+      this.segundos = ("0" + Math.floor(totalSegundos % 60)).slice(-2);
     }
-  },
+  }
 };
 </script>
 

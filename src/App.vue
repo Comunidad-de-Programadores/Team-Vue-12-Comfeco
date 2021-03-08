@@ -1,13 +1,14 @@
 <template>
   <div id="app">
     <Header :isUserAuthenticated="isUserAuthenticated" />
-    <router-view />
+    <router-view :user="user" />
     <Footer />
   </div>
 </template>
 
 <script>
 import { auth } from "@/firebase";
+import { getUserService } from "@/services/user_services";
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 
@@ -16,7 +17,7 @@ export default {
     Header,
     Footer
   },
-  mounted() {
+  created() {
     const isAuthe = localStorage.getItem("isAuth");
     if (isAuthe) this.isUserAuthenticated = true;
 
@@ -24,11 +25,13 @@ export default {
       if (user) {
         this.isUserAuthenticated = true;
         const isAuth = localStorage.getItem("isAuth");
-
         if (!isAuth) {
           localStorage.setItem("isAuth", true);
           this.$router.push({ name: "Home" });
         }
+        getUserService(doc => {
+          this.user = doc.data();
+        });
       } else {
         const isAuth = localStorage.getItem("isAuth");
         this.isUserAuthenticated = false;
@@ -41,7 +44,8 @@ export default {
   },
   data() {
     return {
-      isUserAuthenticated: false
+      isUserAuthenticated: false,
+      user: {}
     };
   }
 };

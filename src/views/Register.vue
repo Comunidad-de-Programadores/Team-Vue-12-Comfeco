@@ -5,36 +5,36 @@
         <NavBarAuth />
         <form @submit.prevent="clickRegister">
           <div class="data">
-            <label class="label-form"
-              ><span>Nick</span
-              ><span
+            <label class="label-form">
+              <span>Nick</span>
+              <span
                 class="answer-style"
                 v-bind:class="[getColorMessage(stateNick)]"
                 >{{ getAnswer(stateNick) }}</span
               >
             </label>
-            <input type="text" v-model="nickString" required="required" />
+            <input type="email" v-model="nickString" required="required" />
           </div>
           <div class="data">
-            <label class="label-form"
-              ><span>Correo electrónico</span
-              ><span
+            <label class="label-form">
+              <span>Correo electrónico</span>
+              <span
                 class="answer-style"
                 v-bind:class="[getColorMessage(stateEmail)]"
                 >{{ getAnswer(stateEmail) }}</span
-              ></label
-            >
+              >
+            </label>
             <input type="text" v-model="emailString" required="required" />
           </div>
           <div class="data">
-            <label class="label-form"
-              ><span>Contraseña</span
-              ><span
+            <label class="label-form">
+              <span>Contraseña</span>
+              <span
                 class="answer-style"
                 v-bind:class="[getColorMessage(statePassword)]"
-                >{{ getAnswer(statePassword) }}</span
-              ></label
-            >
+                >{{ getAnswer(statePassword) }}
+              </span>
+            </label>
             <input
               type="password"
               v-model="passwordString"
@@ -42,14 +42,14 @@
             />
           </div>
           <div class="data">
-            <label class="label-form"
-              ><span>Confirmar Contraseña</span
-              ><span
+            <label class="label-form">
+              <span>Confirmar Contraseña</span>
+              <span
                 class="answer-style"
                 v-bind:class="[getColorMessage(statePassConfirm)]"
-                >{{ getAnswer(statePassConfirm) }}</span
-              ></label
-            >
+                >{{ getAnswer(statePassConfirm) }}
+              </span>
+            </label>
             <input
               type="password"
               v-model="passwordConfirmString"
@@ -74,23 +74,12 @@
 <script>
 import { registerUserService } from "@/services/auth_services";
 import { existNicknameService } from "@/services/user_services";
+import { stateField } from "@/services/enums.js";
 import Email from "@/services/value_object/Email.js";
 import Password from "@/services/value_object/Password.js";
 import Nickname from "@/services/value_object/Nickname.js";
 import NavBarAuth from "@/components/NavBarAuth.vue";
-import { debounce } from "lodash";
-
-const stateField = {
-  INITIAL: "initial",
-  AVAILABLE: "available",
-  NOT_AVAILABLE: "not_available",
-  LOADING: "loading",
-  EMPTY: "empty",
-  ERROR: "error",
-  INVALID: "invalid",
-  VALID: "valid",
-  NOT_COINCIDENCE: "not_coincidence"
-};
+import lodash from "lodash";
 
 export default {
   name: "Register",
@@ -156,10 +145,13 @@ export default {
     }
   },
   created() {
-    this.debouncedSetStateNick = debounce(this.setStateNick, 900);
-    this.debouncedSetStateEmail = debounce(this.setStateEmail, 1100);
-    this.debouncedSetStatePass = debounce(this.setStatePass, 1100);
-    this.debouncedSetPassConfirm = debounce(this.setStatePassConfirm, 1100);
+    this.debouncedSetStateNick = lodash.debounce(this.setStateNick, 900);
+    this.debouncedSetStateEmail = lodash.debounce(this.setStateEmail, 1100);
+    this.debouncedSetStatePass = lodash.debounce(this.setStatePass, 1100);
+    this.debouncedSetPassConfirm = lodash.debounce(
+      this.setStatePassConfirm,
+      1100
+    );
   },
 
   methods: {
@@ -173,7 +165,6 @@ export default {
         if (existNick) this.stateNick = stateField.NOT_AVAILABLE;
         else this.stateNick = stateField.AVAILABLE;
       } catch (error) {
-        console.log(error);
         this.stateNick = stateField.ERROR;
       }
     },
@@ -290,7 +281,9 @@ export default {
       }
 
       if (!this.nickname.isValid() || this.stateNick !== stateField.AVAILABLE) {
-        this.showAlert("Nick Inválido o no disponible");
+        this.showAlert(
+          "Nick Inválido o no disponible. Mínimo 6 carácteres y máximo 20, solo carácteres alfanuméricos y guión bajo"
+        );
         return true;
       }
       if (!this.email.isValid()) {
@@ -298,14 +291,14 @@ export default {
         return true;
       }
       if (!this.password.isValid()) {
-        this.showAlert("Mínimo 6 carácteres y máximo 60 carácteres");
+        this.showAlert("Contraseña mínimo 6 carácteres y máximo 60 carácteres");
         return true;
       }
       return false;
     },
     showAlert(errorMessage) {
       this.isLoading = false;
-      alert(errorMessage);
+      alert(errorMessage, "");
       return;
     }
   }

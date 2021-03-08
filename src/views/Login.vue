@@ -11,9 +11,9 @@
               ><span>Correo electrónico</span
               ><span class="answer-style">{{
                 showErrorMessageEmail ? "Inválido" : ""
-              }}</span></label
-            >
-            <input type="text" v-model="emailString" required="required" />
+              }}</span>
+            </label>
+            <input type="email" v-model="emailString" required="required" />
           </div>
           <div class="data">
             <label
@@ -24,8 +24,8 @@
                 class="answer-style"
                 v-bind:class="{ invalid: showErrorMessagePassword }"
                 >{{ showErrorMessagePassword ? "Inválido" : "" }}</span
-              ></label
-            >
+              >
+            </label>
             <input
               type="password"
               v-model="passwordString"

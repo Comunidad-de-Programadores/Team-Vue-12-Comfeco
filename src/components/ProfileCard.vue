@@ -63,11 +63,19 @@
 </template>
 <script>
 import SvgIcon from "@jamescoyle/vue-icon";
+
+import { areasEnum, imagenDefaultPerfil } from "@/services/enums.js";
 import { mdiFacebook, mdiGithub, mdiLinkedin, mdiTwitter } from "@mdi/js";
 export default {
   name: "ProfileCard",
   components: {
     SvgIcon
+  },
+  props: ["userData"],
+  mounted() {
+    const user = localStorage.getItem("user");
+    console.log(user);
+    console.log(this.userData);
   },
   data: () => ({
     icons: {
@@ -75,22 +83,24 @@ export default {
       github: mdiGithub,
       linkedin: mdiLinkedin,
       twitter: mdiTwitter
-    },
-    user: {
-      name: "Bazael Pérez",
-      avatar:
-        "https://www.comfeco.com/images/leaders/leader-cristopher_paniagua.webp",
-      area: "Frontend Developer / UX/UI",
-      biography:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. l sapiente assumenda molestias voluptas blanditiis.",
-      social: {
-        facebook: "#",
-        github: "#",
-        linkedin: "#",
-        twitter: "#"
-      }
     }
   }),
+  computed: {
+    user() {
+      return {
+        name: this.userData?.name ?? "Usuario nuevo",
+        avatar: this.userData?.avatar ?? imagenDefaultPerfil,
+        area: areasEnum[this.userData?.area] ?? "Área sin definir",
+        biography: this.userData?.biography ?? "Aún no ah editado su biografía",
+        social: {
+          facebook: this.userData?.social?.facebook ?? "#",
+          github: this.userData?.social?.github ?? "#",
+          linkedin: this.userData?.social?.linkedin ?? "#",
+          twitter: this.userData?.social?.twitter ?? "#"
+        }
+      };
+    }
+  },
   methods: {
     changeViewToEditProfile() {
       this.$emit("changeview", true);
@@ -122,8 +132,9 @@ export default {
   justify-content: center;
 }
 .profile-card__avatar img {
-  width: 15em;
-  height: 15em;
+  width: 13em;
+  height: 13em;
+  margin: 1em;
   border-radius: 50%;
 }
 .profile-card__about {
@@ -134,7 +145,7 @@ export default {
   margin-bottom: 2em;
 }
 .profile-card__name {
-  font-size: 2em;
+  font-size: 1.5em;
   font-weight: bold;
   color: var(--bgfooter);
 }
