@@ -30,8 +30,8 @@
                 class="answer-style"
                 v-bind:class="[getColorMessage(stateNick)]"
                 >{{ getAnswer(stateNick) }}</span
-              ></label
-            >
+              >
+            </label>
             <input
               type="text"
               :placeholder="userProp.nick"
@@ -71,10 +71,6 @@
           </div>
         </div>
         <div>
-          <div class="edit-form__input-container">
-            <label for="name">Nombre</label>
-            <input type="text" name="name" v-model.trim="userData.name" />
-          </div>
           <div class="edit-form__input-container">
             <label for="area">Area de conocimiento</label>
             <select
@@ -198,7 +194,14 @@
         </div>
         <div>
           <div class="edit-form__input-container">
-            <label for="biografia">Biografía</label>
+            <label for="biografia" class="label-form">
+              <span>Biografía</span>
+              <span
+                class="answer-style"
+                v-bind:class="[getColorMessage(stateBiography)]"
+                >{{ userData.biography.length }}/140</span
+              >
+            </label>
             <textarea
               name="biografia"
               cols="30"
@@ -268,7 +271,26 @@ export default {
   }),
   methods: {
     goback() {
-      this.$emit("changeview", false);
+      if (
+        this.nickString ||
+        this.emailString ||
+        this.passwordString ||
+        this.passwordConfirmString ||
+        this.userData.area !== this.userProp.area ||
+        this.userData.genero !== this.userProp.genero ||
+        this.userData.fecha !== this.userProp.fecha ||
+        this.userData.pais !== this.userProp.pais ||
+        this.userData.social.facebook !== this.userProp.social.facebook ||
+        this.userData.social.github !== this.userProp.social.github ||
+        this.userData.social.linkedin !== this.userProp.social.linkedin ||
+        this.userData.social.twitter !== this.userProp.social.twitter ||
+        this.userData.biography !== this.userProp.biography
+      ) {
+        const isGoBack = confirm("Los cambios se perderán. ¿Deseas regresar?");
+        if (isGoBack) {
+          this.$emit("changeview", false);
+        }
+      } else this.$emit("changeview", false);
     },
     async setStateNick() {
       if (this.showErrorStateNick()) return;
@@ -416,6 +438,10 @@ export default {
         );
         return true;
       }
+      if (this.stateBiography === stateField.INVALID) {
+        this.showAlert("Máximo caracteres para la biografía es de 140");
+        return true;
+      }
       if (this.emailString && !this.email.isValid()) {
         this.showAlert("Correo no válido");
         return true;
@@ -446,6 +472,10 @@ export default {
     },
     nickname() {
       return new Nickname(this.nickString);
+    },
+    stateBiography() {
+      if (this.userData.biography.length > 140) return stateField.INVALID;
+      return stateField.INITIAL;
     }
   },
   watch: {
@@ -484,7 +514,6 @@ export default {
   },
   created() {
     this.userData = {
-      name: this.userProp?.name ?? "",
       avatar: this.userProp?.avatar ?? imagenDefaultPerfil,
       area: this.userProp?.area ?? "NOT_COINCIDENCE",
       genero: this.userProp?.genero ?? "",

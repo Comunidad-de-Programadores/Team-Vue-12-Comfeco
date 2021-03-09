@@ -9,7 +9,7 @@
       </div>
       <div class="profile-card__about">
         <div class="profile-card__name">
-          {{ user.name }}
+          {{ user.nick }}
         </div>
         <div class="profile-card__area">
           {{ user.area }}
@@ -22,6 +22,7 @@
         <a
           target="_blank"
           :href="user.social.facebook"
+          v-if="user.social.facebook"
           class="profile-card__social-icon"
         >
           <svg-icon
@@ -33,6 +34,7 @@
         </a>
         <a
           target="_blank"
+          v-if="user.social.github"
           :href="user.social.github"
           class="profile-card__social-icon"
         >
@@ -40,6 +42,7 @@
         </a>
         <a
           target="_blank"
+          v-if="user.social.linkedin"
           :href="user.social.linkedin"
           class="profile-card__social-icon"
         >
@@ -51,6 +54,7 @@
           />
         </a>
         <a
+          v-if="user.social.twitter"
           target="_blank"
           :href="user.social.twitter"
           class="profile-card__social-icon"
@@ -88,7 +92,7 @@ export default {
   computed: {
     user() {
       return {
-        name: this.userData?.name ?? "Usuario nuevo",
+        nick: this.userData?.nick ?? "Usuario nuevo",
         avatar: this.userData?.avatar ?? imagenDefaultPerfil,
         area: areasEnum[this.userData?.area] ?? "Área sin definir",
         biography: this.userData?.biography ?? "Aún no ah editado su biografía",
@@ -142,7 +146,6 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 2em;
 }
 .profile-card__name {
   font-size: 1.5em;
