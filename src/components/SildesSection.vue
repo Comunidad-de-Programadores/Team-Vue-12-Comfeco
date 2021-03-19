@@ -12,7 +12,9 @@
       :slide-ratio="1 / 4"
       :dragging-distance="200"
       :breakpoints="{
-        800: { visibleSlides: 3, slideMultiple: 3 }
+        900: { visibleSlides: 4, slideMultiple: 4, slideRatio: 1 / 4 },
+        700: { visibleSlides: 3, slideMultiple: 3, slideRatio: 1 / 3.5 },
+        500: { visibleSlides: 2, slideMultiple: 2, slideRatio: 1 / 2 }
       }"
     >
       <vueper-slide v-for="(card, i) in leaders" :key="i">
@@ -76,8 +78,6 @@ export default {
 
 <style scoped>
 .slice_section {
-  padding: 0 5rem;
-
   margin: auto;
   display: flex;
   flex-direction: column;
