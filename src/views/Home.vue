@@ -59,10 +59,10 @@ export default {
   width: 90%;
   margin-bottom: 1em;
 }
-@media screen and (min-width: 640px) and (orientation: landscape) {
+@media screen and (min-width: 900px) and (orientation: landscape) {
   .home {
     display: grid;
-    grid-template-columns: 20% 60% 15%;
+    grid-template-columns: 25% 60% 10%;
     grid-template-rows: auto;
     justify-content: center;
     justify-items: center;
