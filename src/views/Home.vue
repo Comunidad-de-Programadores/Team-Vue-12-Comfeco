@@ -1,9 +1,23 @@
 <template>
   <div class="home">
-    <Descripcion />
     <SildesSection />
-    <Contador />
-    <communities-card></communities-card>
+    <div class="home__content-center">
+      <div class="home__description-container">
+        <descripcion />
+      </div>
+      <div class="home__collaborators-slide-container">
+        slide colaboradores
+      </div>
+      <div class="home__sponsors-slide-container">
+        slide sponsors
+      </div>
+      <div class="home__clockdown-container">
+        <contador />
+      </div>
+    </div>
+    <div class="home__communities-container">
+      <communities-card />
+    </div>
   </div>
 </template>
 
@@ -27,6 +41,43 @@ export default {
 </script>
 <style scoped>
 .home {
-  padding-top: 7em;
+  padding-top: 9em;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.home__content-center {
+  width: 90%;
+}
+.home__description-container,
+.home__collaborators-slide-container,
+.home__sponsors-slide-container,
+.home__clockdown-container {
+  width: 100%;
+  margin-bottom: 1em;
+}
+.home__communities-container {
+  width: 90%;
+  margin-bottom: 1em;
+}
+@media screen and (min-width: 900px) and (orientation: landscape) {
+  .home {
+    display: grid;
+    grid-template-columns: 25% 60% 10%;
+    grid-template-rows: auto;
+    justify-content: center;
+    justify-items: center;
+  }
+  .home__content-center {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .home__communities-container {
+    width: 100%;
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
+  }
 }
 </style>

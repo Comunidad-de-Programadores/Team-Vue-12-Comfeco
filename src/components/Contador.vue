@@ -36,7 +36,7 @@ export default {
   methods: {
     countdouwn() {
       let fechaActual = new Date();
-      let fechaFinal = new Date("15 March 2021 10:00:00");
+      let fechaFinal = new Date("25 March 2021 10:00:00");
       let totalSegundos = Math.floor((fechaFinal - fechaActual) / 1000);
       this.dias = Math.floor(totalSegundos / 3600 / 24);
       this.horas = Math.floor(totalSegundos / 3600) % 24;
@@ -64,15 +64,14 @@ export default {
   flex-direction: column;
   font-weight: bolder;
   font-family: "Poppins", sans-serif;
-  padding: 40px 0;
+  padding: 1em 0;
 }
 
 .contador_tiempo {
   display: flex;
   width: 100%;
-  min-height: 140px;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
 }
 
@@ -80,15 +79,23 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 50px;
 }
 
 .hora_numero {
-  font-size: 103.63px;
+  font-size: 3em;
 }
 
 .hora_texto {
-  margin: -2rem 0 0 0;
-  font-size: 11.33px;
+  font-size: 1em;
+}
+@media screen and (min-width: 640px) and (orientation: landscape) {
+  .hora_numero {
+    font-size: 7em;
+  }
+
+  .hora_texto {
+    transform: translateY(-80%);
+    font-size: 2em;
+  }
 }
 </style>

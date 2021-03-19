@@ -32,8 +32,8 @@ export default {
   border-bottom: 5px solid #69156a;
 }
 .comunity__avatar-container {
-  width: 5em;
-  height: 5em;
+  width: 4em;
+  height: 4em;
   border-radius: 50%;
   background: var(--bgfooter);
 }
@@ -50,7 +50,7 @@ export default {
 }
 .comunity__button-container {
   height: 100%;
-  width: 30%;
+  width: 40%;
   display: flex;
   align-items: flex-end;
 }
