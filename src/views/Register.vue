@@ -13,7 +13,7 @@
                 >{{ getAnswer(stateNick) }}</span
               >
             </label>
-            <input type="email" v-model="nickString" required="required" />
+            <input type="text" v-model="nickString" required="required" />
           </div>
           <div class="data">
             <label class="label-form">
@@ -24,7 +24,7 @@
                 >{{ getAnswer(stateEmail) }}</span
               >
             </label>
-            <input type="text" v-model="emailString" required="required" />
+            <input type="email" v-model="emailString" required="required" />
           </div>
           <div class="data">
             <label class="label-form">
