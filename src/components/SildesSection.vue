@@ -77,13 +77,13 @@ export default {
 <style scoped>
 .slice_section {
   padding: 0 5rem;
-  width: 60%;
+
   margin: auto;
   display: flex;
   flex-direction: column;
 }
 .tittle {
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
   color: #8a178c;
   font-size: 1.2rem;

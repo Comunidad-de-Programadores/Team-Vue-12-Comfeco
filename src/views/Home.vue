@@ -1,16 +1,13 @@
 <template>
   <div class="home">
-    <SildesSection />
     <div class="home__content-center">
       <div class="home__description-container">
         <descripcion />
       </div>
       <div class="home__collaborators-slide-container">
-        slide colaboradores
+        <SildesSection />
       </div>
-      <div class="home__sponsors-slide-container">
-        slide sponsors
-      </div>
+
       <div class="home__clockdown-container">
         <contador />
       </div>
